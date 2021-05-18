@@ -7,14 +7,14 @@ from typing import Dict, Callable, Optional
 import aiohttp
 from blspy import AugSchemeMPL, PrivateKey
 from aiohttp import web
-from chiablockchain.chia.protocols.pool_protocol import SubmitPartial, PoolInfo
-from chiablockchain.chia.util.hash import std_hash
-from chiablockchain.chia.consensus.default_constants import DEFAULT_CONSTANTS
-from chiablockchain.chia.consensus.constants import ConsensusConstants
-from chiablockchain.chia.util.json_util import obj_to_response
-from chiablockchain.chia.util.ints import uint64
-from chiablockchain.chia.util.default_root import DEFAULT_ROOT_PATH
-from chiablockchain.chia.util.config import load_config
+from chia.protocols.pool_protocol import SubmitPartial, PoolInfo
+from chia.util.hash import std_hash
+from chia.consensus.default_constants import DEFAULT_CONSTANTS
+from chia.consensus.constants import ConsensusConstants
+from chia.util.json_util import obj_to_response
+from chia.util.ints import uint64
+from chia.util.default_root import DEFAULT_ROOT_PATH
+from chia.util.config import load_config
 
 from error_codes import PoolErr
 from store import FarmerRecord
@@ -108,6 +108,7 @@ async def start_pool_server():
     overrides = config["network_overrides"]["constants"][config["selected_network"]]
     constants: ConsensusConstants = DEFAULT_CONSTANTS.replace_str_to_bytes(**overrides)
     server = PoolServer(private_key, config, constants)
+    await server.start()
 
     # TODO: support TLS
     app = web.Application()

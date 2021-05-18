@@ -1,8 +1,8 @@
 import random
 from secrets import token_bytes
 
-from chiablockchain.chia.consensus.pos_quality import _expected_plot_size
-from chiablockchain.chia.consensus.pot_iterations import calculate_iterations_quality
+from chia.consensus.pos_quality import _expected_plot_size
+from chia.consensus.pot_iterations import calculate_iterations_quality
 
 # This is the sub slot iters that all pools must use to base the difficulty on. A difficulty of 1 (the minimum)
 # targets about 10 proofs per day for one plot of size k32. There are 9216 signage points per day, 64 signage points
